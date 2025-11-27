@@ -10,8 +10,10 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
     "dotenv": "^17.2.3",
@@ -20,15 +22,18 @@
     "install": "^0.13.0",
     "npm": "^11.6.4",
     "prettier": "^3.6.2",
-    "prisma": "^7.0.1",
+    "prisma": "^6.19.0",
     "ts-node": "^10.9.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/adapter-pg": "^7.0.1",
-    "@prisma/client": "^7.0.1",
+    "@prisma/client": "^6.19.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "helmet": "^8.1.0",
+    "ioredis": "^5.8.2",
+    "jsonwebtoken": "^9.0.2",
     "pg": "^8.16.3"
   }
 }

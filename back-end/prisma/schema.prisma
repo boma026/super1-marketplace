@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -53,11 +54,11 @@ model Service {
   type        ServiceType? @relation(fields: [typeId], references: [id])
   name        String
   description String?
-  photos      String[]   // Postgres: text[] or JSON
+  photos      String[]  
   active      Boolean   @default(true)
 
   variations  ServiceVariation[]
-  bookings    Booking[]  // optional direct link
+  bookings    Booking[]  
   review Review[]
 }
 
