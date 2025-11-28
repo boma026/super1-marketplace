@@ -8,7 +8,7 @@ dotenv.config();
 const server = express();
 server.use(helmet());
 server.use(express.json())
-server.use(cors({origin: "http://localhost:3000"}));
+server.use(cors({origin: "http://localhost:5173"}));
 
 server.use("/", router);
 

@@ -139,7 +139,6 @@ model Review {
 enum UserRole {
   CUSTOMER
   PROVIDER
-  ADMIN
 }
 
 enum BookingStatus {

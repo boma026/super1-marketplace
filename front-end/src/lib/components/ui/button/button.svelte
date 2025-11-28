@@ -64,6 +64,7 @@
 		aria-disabled={disabled}
 		role={disabled ? "link" : undefined}
 		tabindex={disabled ? -1 : undefined}
+		on:click
 		{...restProps}
 	>
 		{@render children?.()}
@@ -74,6 +75,7 @@
 		data-slot="button"
 		class={cn(buttonVariants({ variant, size }), className)}
 		{type}
+		on:click
 		{disabled}
 		{...restProps}
 	>

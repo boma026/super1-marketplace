@@ -15,7 +15,7 @@
 			<nav class="flex flex-1 justify-end items-center gap-6 text-gray-700">
 				<a href="/search" class="hover:text-gray-700/80">Buscar Serviços</a>
 				<a href="/provider/dashboard" class="hover:text-gray-700/80">Sou Prestador</a>
-				<a href="/login" class="px-4 py-2 bg-(--primary) text-white rounded-lg hover:bg-(--primary)/90 transition">
+				<a href="/auth/select-role" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-(--primary)/90 transition">
 					Entrar
 				</a>
 			</nav>
