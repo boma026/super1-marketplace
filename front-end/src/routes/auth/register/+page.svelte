@@ -35,7 +35,7 @@
              if(res.status === 201) {
                 alert("Conta criada!");
                 console.log(res.data);
-                window.location.href = "auth/login";        
+                window.location.href = "/login";        
             }
             
         } catch (err) {

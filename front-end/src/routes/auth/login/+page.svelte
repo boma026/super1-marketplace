@@ -29,10 +29,15 @@
         const data = {email, password, role};
         
         try {
-            const res = await api.post("/login", data);
+            const res = await api.post("/login", data, {withCredentials: true});
             if(res.status === 200) {
                 alert("logado");
-                window.location.href = "/search";        
+                if(res.data.user.role === "COSTUMER") {
+                    window.location.href = "/search"; 
+                }
+                else {
+                     window.location.href = "/provider/dashboard"; 
+                }       
             }
         } catch (err) {
             console.error(err);

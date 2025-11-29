@@ -6,5 +6,6 @@ if (!PUBLIC_API_URL) {
 }
 
 export const api = axios.create({
-    baseURL: PUBLIC_API_URL
+    baseURL: PUBLIC_API_URL,
+    withCredentials: true
 });

@@ -24,6 +24,14 @@ export const loginController: RequestHandler = async (req, res) => {
             { expiresIn: "1h" }
         );
 
+        res.cookie("session", token, {
+            httpOnly: true,
+            secure: false,
+            sameSite: "lax",
+            path: "/",       // disponível para todo o app
+            maxAge: 60 * 60 * 1000 // 1 hora
+        });
+
         return res.status(200).json({
             user: {
                 id: userVerified.id,
@@ -32,7 +40,6 @@ export const loginController: RequestHandler = async (req, res) => {
                 role: userVerified.role
             },
             status: true,
-            token
         });
 
     } catch (e) {
