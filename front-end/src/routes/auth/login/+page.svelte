@@ -54,7 +54,7 @@
 <div class="min-h-screen flex items-center justify-center bg-slate-50">
     <Card.Root class="w-full max-w-sm">
         <Card.Header>
-            <Card.Title>Login ({role}):</Card.Title>
+            <Card.Title>Login ({role === "CUSTOMER" ? "Cliente" : "Prestador" }):</Card.Title>
         </Card.Header>
         <Card.Content>
         <form on:submit={handleSendForm} id="loginForm">

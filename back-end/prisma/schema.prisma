@@ -13,18 +13,6 @@ model User {
   email      String   @unique
   password   String
   role       UserRole @default(CUSTOMER)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  bookings   Booking[]  @relation("clientBookings")
-  reviews    Review[]
-}
-
-model Provider {
-  id         String   @id @default(cuid())
-  name       String
-  email      String   @unique
-  password   String
   bio        String?
   phone      String?
   city       String?
@@ -32,24 +20,33 @@ model Provider {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  services    Service[]
-  availabilities Availability[]
-  bookings    Booking[] @relation("providerBookings")
-  notifications Notification[]
-  reviews     Review[]
+  // Serviços oferecidos pelo usuário (se PROVIDER)
+  services          Service[]        @relation("providerServices")  
+  availabilities    Availability[]   @relation("providerAvailability")
+  
+  // Bookings
+  bookingsAsClient   Booking[]       @relation("clientBookings")
+  bookingsAsProvider Booking[]       @relation("providerBookings")
+  
+  // Reviews
+  reviewsAsClient    Review[]        @relation("clientReviews")   
+  reviewsAsProvider  Review[]        @relation("providerReviews")
+  
+  // Notificações (para providers)
+  notifications      Notification[]
 }
 
 model ServiceType {
-  id    String @id @default(cuid())
-  name  String @unique
-  slug  String @unique
+  id       String   @id @default(cuid())
+  name     String   @unique
+  slug     String   @unique
   services Service[]
 }
 
 model Service {
   id          String    @id @default(cuid())
   providerId  String
-  provider    Provider  @relation(fields: [providerId], references: [id])
+  provider    User      @relation("providerServices", fields: [providerId], references: [id])
   typeId      String?
   type        ServiceType? @relation(fields: [typeId], references: [id])
   name        String
@@ -58,8 +55,8 @@ model Service {
   active      Boolean   @default(true)
 
   variations  ServiceVariation[]
-  bookings    Booking[]  
-  review Review[]
+  bookings    Booking[]
+  reviews     Review[]
 }
 
 model ServiceVariation {
@@ -75,9 +72,9 @@ model ServiceVariation {
 }
 
 model Availability {
-  id         String  @id @default(cuid())
+  id         String   @id @default(cuid())
   providerId String
-  provider   Provider @relation(fields: [providerId], references: [id])
+  provider   User     @relation("providerAvailability", fields: [providerId], references: [id])
 
   // Recurring rule example (weekday)
   weekday    Int?     // 0 = Sunday .. 6 = Saturday
@@ -94,7 +91,7 @@ model Booking {
   clientId     String
   client       User     @relation("clientBookings", fields: [clientId], references: [id])
   providerId   String
-  provider     Provider @relation("providerBookings", fields: [providerId], references: [id])
+  provider     User     @relation("providerBookings", fields: [providerId], references: [id])
 
   serviceId    String
   service      Service  @relation(fields: [serviceId], references: [id])
@@ -108,14 +105,13 @@ model Booking {
   createdAt    DateTime @default(now())
   canceledAt   DateTime?
 
-  // metadata, price final etc
   price        Decimal? @db.Decimal(10,2)
 }
 
 model Notification {
   id         String   @id @default(cuid())
   providerId String
-  provider   Provider @relation(fields: [providerId], references: [id])
+  provider   User     @relation(fields: [providerId], references: [id])
   type       String
   message    String
   read       Boolean  @default(false)
@@ -125,12 +121,16 @@ model Notification {
 
 model Review {
   id         String   @id @default(cuid())
+  
   clientId   String
-  client     User     @relation(fields: [clientId], references: [id])
+  client     User     @relation("clientReviews", fields: [clientId], references: [id])
+  
   providerId String?
-  provider   Provider? @relation(fields: [providerId], references: [id])
+  provider   User?    @relation("providerReviews", fields: [providerId], references: [id])
+  
   serviceId  String?
-  service    Service?  @relation(fields: [serviceId], references: [id])
+  service    Service? @relation(fields: [serviceId], references: [id])
+  
   rating     Int
   comment    String?
   createdAt  DateTime @default(now())

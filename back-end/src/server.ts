@@ -3,9 +3,12 @@ import express from "express";
 import helmet from "helmet";
 import cors from "cors";
 import { router } from "./router/routes";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const server = express();
+server.use("/uploads", express.static("uploads"));
+server.use(cookieParser());
 server.use(helmet());
 server.use(express.json())
 server.use(cors({origin: "http://localhost:5173", credentials: true}));
