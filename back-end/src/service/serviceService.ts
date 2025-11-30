@@ -1,5 +1,5 @@
-import { createServiceModel, getServicesModel } from "../model/serviceModel";
-import { CreateServiceProps } from "../types/CreateService";
+import { createServiceModel, findServicesByTypeModel, getServicesModel } from "../model/serviceModel";
+import { CreateServiceProps } from "../types/CreateServiceProps";
 
 export const createService = async ({
   providerId,
@@ -58,4 +58,8 @@ export const getServices = async (providerId: string) => {
   if (!providerId) throw new Error("Provider ID inválido");
   const services = await getServicesModel(providerId);
   return services;
+};
+
+export const getServicesByType = async (type: string) => {
+  return await findServicesByTypeModel(type);
 };

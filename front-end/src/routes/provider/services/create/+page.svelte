@@ -1,5 +1,6 @@
 <script lang="ts">
   import Button from "$lib/components/ui/button/button.svelte";
+	import { serviceTypes } from "../../../../constants/serviceTypes";
   import { api } from "../../../../utils/api";
 
   let name = "";
@@ -9,16 +10,7 @@
   let serviceType = ""; // Tipo selecionado no dropdown
 
   // Lista global de tipos de serviço (8 exemplos)
-  const serviceTypes = [
-    "Manicure",
-    "Pedicure",
-    "Corte de cabelo",
-    "Coloração",
-    "Depilação",
-    "Maquiagem",
-    "Massagem",
-    "Estética facial"
-  ];
+
 
   function handlePhotos(e: Event) {
     const input = e.target as HTMLInputElement;

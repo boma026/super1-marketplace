@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { createService, getServices } from "../service/serviceService";
+import { createService, getServices, getServicesByType } from "../service/serviceService";
 
 export const createServiceController: RequestHandler = async (req, res) => {
   try {
@@ -37,8 +37,25 @@ export const getServicesController: RequestHandler = async (req, res) => {
     const providerId = req.user!.id;
     const services = await getServices(providerId);
     return res.status(200).json(services);
+
   } catch (err: any) {
     return res.status(500).json({ error: err.message });
   }
 };
 
+export const getServicesByTypeController:RequestHandler = async (req, res) => {
+  try {
+    const { type } = req.params;
+
+    if(!type) {
+       return res.status(400).json({error: "tipo inválido"})  
+    }
+
+    const services = await getServicesByType(type);
+
+    return res.status(200).json(services);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Erro ao carregar serviços" });
+  }
+};

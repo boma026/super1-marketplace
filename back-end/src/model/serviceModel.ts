@@ -1,5 +1,5 @@
 import { prisma } from "../../libs/prisma/prisma";
-import { CreateServiceProps } from "../types/CreateService";
+import { CreateServiceProps } from "../types/CreateServiceProps";
 
 export const createServiceModel = async ({
   providerId,
@@ -47,8 +47,39 @@ export const createServiceModel = async ({
 };
 
 export const getServicesModel = async (providerId: string) => {
-  return prisma.service.findMany({
+  try{
+    const services = prisma.service.findMany({
     where: { providerId },
     include: { variations: true, type: true }
   });
+  return services;
+ }catch(e: any) {
+    throw new Error("Erro ao achar serviços: ", e);
+ }
 };
+
+export const findServicesByTypeModel = async (type: string) => {
+  try {
+    const services = await prisma.service.findMany({
+      where: {
+        type: { slug: type }
+      },
+      include: {
+        type: true,
+        variations: true,
+        provider: {
+          include: {
+            availabilities: true // incluir slots
+          }
+        }
+      }
+    });
+
+    return services;
+  } catch (e: any) {
+    throw new Error("Erro ao buscar serviços por tipo: " + e.message);
+  }
+};
+
+
+

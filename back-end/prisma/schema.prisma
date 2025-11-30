@@ -70,26 +70,26 @@ model ServiceVariation {
 
   bookings       Booking[]
 }
-
 model Availability {
   id         String   @id @default(cuid())
   providerId String
   provider   User     @relation("providerAvailability", fields: [providerId], references: [id])
 
-  // Recurring rule example (weekday)
-  weekday    Int?     // 0 = Sunday .. 6 = Saturday
-  startTime  String?  // "09:00"
-  endTime    String?  // "12:00"
-
-  // OR specific slot
+  weekday     Weekday
+  startTime  String?
+  endTime    String?
   startAt    DateTime?
   endAt      DateTime?
+
+  @@unique([providerId, weekday])
 }
+
+
 
 model Booking {
   id           String   @id @default(cuid())
-  clientId     String
-  client       User     @relation("clientBookings", fields: [clientId], references: [id])
+  customerId     String
+  customer       User     @relation("clientBookings", fields: [customerId], references: [id])
   providerId   String
   provider     User     @relation("providerBookings", fields: [providerId], references: [id])
 
@@ -146,4 +146,14 @@ enum BookingStatus {
   CONFIRMED
   CANCELLED
   COMPLETED
+}
+
+enum Weekday {
+  Segunda
+  Terca
+  Quarta
+  Quinta
+  Sexta
+  Sabado
+  Domingo
 }

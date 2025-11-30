@@ -32,8 +32,9 @@
             const res = await api.post("/login", data, {withCredentials: true});
             if(res.status === 200) {
                 alert("logado");
-                if(res.data.user.role === "COSTUMER") {
-                    window.location.href = "/search"; 
+                console.log(res.data.user.role);
+                if(res.data.user.role === "CUSTOMER") {
+                    window.location.href = "/"; 
                 }
                 else {
                      window.location.href = "/provider/dashboard"; 
