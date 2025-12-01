@@ -1,116 +1,112 @@
-# 🛠️ Mini Marketplace de Serviços
+# 🛒 Mini Marketplace de Serviços
 
-Um sistema completo de marketplace de serviços para profissionais liberais (diaristas, pintores, manicure, eletricista, etc).  
-Desenvolvido em **8 dias** com foco em modelagem, performance, UX e arquitetura limpa.  
-Rodando totalmente via **Docker**, com backend em Node.js + SvelteKit no frontend.
+Um marketplace completo para profissionais liberais (diarista, pintor, manicure, eletricista etc.), desenvolvido em 8 dias com foco em modelagem, performance, UX e arquitetura limpa.
+A aplicação roda totalmente em Docker, com Node.js (Express) no backend e SvelteKit no frontend.
 
----
-
-## 🚀 Funcionalidades
-
+## ✨ Funcionalidades
 ### 👨‍🔧 Prestador
-- Cadastro de prestador  
-- Área administrativa para:
-  - Criar serviços  
-  - Adicionar variações  
-  - Gerenciar agenda semanal (dias + horários)  
-  - Ver contratações  
-  - Ver agenda com serviços marcados  
-  - Receber notificações de novas contratações  
+
+Cadastro de prestador
+
+Painel administrativo com:
+
+Criação de serviços
+
+Criação de variações
+
+Definição de agenda semanal
+
+Visualização de contratações
+
+Calendário com horários ocupados
+
+Notificações de novas contratações
 
 ### 👤 Cliente
-- Navegação de serviços sem login  
-- Cadastro / Login  
-- Filtrar serviços por tipo  
-- Ver detalhes do serviço (prestador, descrição, variações, fotos)  
-- Escolher variação + dia + horário  
-- Realizar contratação (sem pagamento, automaticamente aprovada)  
 
-### 📅 Contratação
-- Bloqueio automático de horários para evitar sobreposição  
-- Duração da variação é respeitada (ex.: 1h → ocupa 1h da agenda)  
-- Notificação simples para o prestador  
+Navegação sem login
 
----
+Cadastro / Login
 
-## 🧱 Arquitetura da Aplicação
+Filtros por tipo de serviço
 
+Página de detalhes (prestador, descrição, fotos, variações)
 
+Seleção de variação + data + horário
 
+Contratação (autoaprovada, sem pagamento)
+
+### 📅 Agendamentos
+
+Bloqueio automático de horários
+
+Respeito à duração da variação (ex.: 1h → ocupa 1h na agenda)
+
+Notificação para o prestador
+
+### 🧱 Arquitetura da Aplicação
 /super1-marketplace
-├── back-end → API Node.js (Express) + Prisma + Redis
-├── front-end → SvelteKit + Vite
+├── back-end       → API Node.js (Express) + Prisma + Redis
+├── front-end      → SvelteKit + Vite
 ├── docker-compose.yml
 └── README.md
 
+## 🧰 Tecnologias Utilizadas
+### Backend
 
----
+Node.js + Express
 
-## 🛠️ Tecnologias Utilizadas
+Prisma ORM
 
-### **Backend**
-- Node.js + Express  
-- Prisma ORM  
-- PostgreSQL  
-- Redis (cache para slots/agendamento)  
-- JWT para autenticação  
+PostgreSQL
 
-### **Frontend**
-- SvelteKit  
-- Vite  
-- TailwindCSS (se estiver usando)  
+Redis (cache para agendamento)
 
-### **Infraestrutura**
-- Docker  
-- Docker Compose  
+JWT
 
----
+### Frontend
 
-# 🐳 Como Rodar o Projeto com Docker
+SvelteKit
 
-⚠️ **Pré-requisitos**:
-- Docker
-- Docker Compose
+Vite
 
----
+TailwindCSS (opcional)
 
-## 1️⃣ Subir todos os containers
+Infra
 
+Docker & Docker Compose
+
+## 🐳 Como Rodar o Projeto com Docker
+### 📌 Pré-requisitos
+
+Docker
+
+Docker Compose
+
+### 1️⃣ Subir os containers
 ```bash
 docker compose up -d --build
 ```
 
-Isso irá iniciar:
+### 2️⃣ Rodar migrations + seed
 
-Serviço	Porta
-Frontend (SvelteKit)	5173
-Backend (Node.js)	4000
-Redis	6379
-Postgres	5432
-2️⃣ Rodar migrations e seed
-
-Entre no container do backend:
-
+Entre no backend:
 ```bash
 docker exec -it marketplace_backend sh
 ```
 
-Rode as migrations:
-
+Execute as migrations:
 ```bash
 npx prisma migrate deploy
 ```
 
-Popule com dados iniciais:
-
+Execute o seed:
 ```bash
 npx prisma db seed
 ```
 
-Pronto! 🎉
 
-🌐 URLs da Aplicação
-
+### 🌐 URLs
 Sistema	URL
 Frontend	http://localhost:5173
 
@@ -119,35 +115,32 @@ Backend API	http://localhost:4000
 Postgres	localhost:5432
 Redis	localhost:6379
 
-🔧 Variáveis de Ambiente
+### 🔧 Variáveis de Ambiente (Modo Local, sem Docker)
 
-As variáveis já estão configuradas via Docker.
-Mas, caso queira rodar localmente sem docker, crie um .env no backend:
-
+Crie um .env no backend:
+```bash
 DATABASE_URL="postgresql://postgres:1234@localhost:5432/s1_market"
 JWT_SECRET_KEY=sua_chave_aqui
 SENHA_LOGIN=sua_senha_aqui
 REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 PORT=4000
-
-📹 Vídeo da Apresentação
-
+```
+🎥 Vídeo da Apresentação
 
 👉 Vídeo da Demo — YouTube
+(adicione o link aqui)
 
-O vídeo deve mostrar:
-
-⭐ Melhorias Futuras
+⭐ Melhorias Futuras:
 
 Integração com WhatsApp/E-mail/Telegram
 
-Serviço longos (vários dias)
+Serviços longos (vários dias)
 
 Avaliações e comentários
 
-Geolocalização (buscar por cidade/bairro)
+Busca por geolocalização (cidade/bairro)
 
-Elasticsearch para autocomplete e buscas inteligentes
+Elasticsearch para autocomplete e busca inteligente
 
-Chat cliente ↔ prestador dentro do sistema
+Chat cliente ↔ prestador
