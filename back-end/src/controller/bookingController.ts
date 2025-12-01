@@ -10,7 +10,6 @@ export const createBookingController: RequestHandler = async (req, res) => {
 
     const data: CreateBooking = { customerId, providerId, serviceId, variationId, date, time };
 
-    // O service retorna os dados validados
     const booking = await createBooking(data);
 
     return res.status(201).json({ success: true, booking });
@@ -22,7 +21,7 @@ export const createBookingController: RequestHandler = async (req, res) => {
 
 export const getProviderBookingsController: RequestHandler = async (req, res) => {
   try {
-    const providerId = req.user!.id; // já vem do token
+    const providerId = req.user!.id;
 
     const bookings = await getProviderBookings(providerId);
 
@@ -33,18 +32,18 @@ export const getProviderBookingsController: RequestHandler = async (req, res) =>
   }
 };
 
-export const cancelBookingController:RequestHandler = async (req, res) => {
-    try {
-      const { id } = req.params;
+export const cancelBookingController: RequestHandler = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-      if(!id) return res.status(400).json( {message: "Não foi possivel cancelar o agendamento"})
-      
-      const booking = await cancelBooking(id);
-
-      return res.status(200).json({ message: "Booking cancelado com sucesso.", booking});
-
-    } catch (error: any) {
-      return res.status(400).json({ error: error.message });
+    if (!id) {
+      return res.status(400).json({ message: "Não foi possivel cancelar o agendamento" });
     }
+
+    const booking = await cancelBooking(id);
+
+    return res.status(200).json({ message: "Booking cancelado com sucesso.", booking });
+  } catch (error: any) {
+    return res.status(400).json({ error: error.message });
   }
-;
+};

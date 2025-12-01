@@ -1,7 +1,7 @@
 // model/availabilityModel.ts
 
 import { Weekday } from "@prisma/client";
-import { prisma } from "../../libs/prisma/prisma";
+import { prisma } from "../lib/prisma/prisma";
 import { CreateAvailabilityProps } from "../types/CreateAvailabilityProps";
 
 

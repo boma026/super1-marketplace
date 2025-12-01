@@ -1,5 +1,5 @@
 import type { Booking } from "@prisma/client";
-import { prisma } from "../../libs/prisma/prisma";
+import { prisma } from "../lib/prisma/prisma";
 
 export const createBookingModel = async (data: Omit<Booking, "id" | "createdAt">): Promise<Booking> => {
     try {
@@ -12,17 +12,24 @@ export const createBookingModel = async (data: Omit<Booking, "id" | "createdAt">
     }
 };
 
-// Verifica se há reservas conflitantes para um provider
-export const findOverlappingBookingModel = async (providerId: string, startAt: Date, endAt: Date) => {
+export const findOverlappingBookingModel = async (
+    providerId: string,
+    startAt: Date,
+    endAt: Date
+) => {
     try {
         const overlappingBooking = await prisma.booking.findFirst({
             where: {
                 providerId,
                 AND: [
+                    // startAt < endAt da reserva existente (começa antes do fim da outra)
                     { startAt: { lt: endAt } },
+
+                    // endAt > startAt da reserva existente (termina depois do início da outra)
+                    // Essas duas condições juntas detectam sobreposição de horários
                     { endAt: { gt: startAt } },
                 ],
-                status: { not: "CANCELLED" },
+                status: { not: "CANCELLED" }, // considera apenas reservas ativas
             },
         });
         return overlappingBooking;
@@ -31,7 +38,6 @@ export const findOverlappingBookingModel = async (providerId: string, startAt: D
     }
 };
 
-// Busca variação do serviço
 export const findVariationModel = async (variationId: string) => {
     try {
         const variation = await prisma.serviceVariation.findUnique({
@@ -53,8 +59,8 @@ export const findProviderBookingsModel = async (providerId: string) => {
                 variation: true
             },
             orderBy: {
-                startAt: "asc"
-            }
+                startAt: "asc",
+            },
         });
         return bookings;
     } catch (error) {
@@ -83,7 +89,7 @@ export const cancelBookingModel = async (id: string) => {
             where: { id },
             data: {
                 status: "CANCELLED",
-                canceledAt: new Date(),
+                canceledAt: new Date(), // registra quando foi cancelada
             },
         });
         return booking;

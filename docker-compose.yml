@@ -1,0 +1,55 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:latest
+    container_name: marketplace_redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis_data:/data
+
+  db:
+    image: postgres:16
+    container_name: marketplace_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: marketplace
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./back-end
+    container_name: marketplace_backend
+    ports:
+      - "4000:4000"
+    environment:
+      DATABASE_URL: "postgresql://user:password@db:5432/marketplace"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
+      PORT: "4000"
+    volumes:
+      - ./back-end:/app
+      - /app/node_modules
+    depends_on:
+      - db
+      - redis
+
+  front-end:
+    build: ./front-end
+    container_name: marketplace_frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  redis_data:

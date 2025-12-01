@@ -4,18 +4,22 @@ import { createService, getServices, getServicesByType } from "../service/servic
 export const createServiceController: RequestHandler = async (req, res) => {
   try {
     const providerId = req.user!.id;
-    
+
     const { name, description, variations, serviceType } = req.body;
     const photosFiles = req.files as Express.Multer.File[];
 
-if (!photosFiles || photosFiles.length === 0) {
-  throw new Error("Nenhuma foto enviada.");
-}
+    // Verifica se fotos foram enviadas
+    if (!photosFiles || photosFiles.length === 0) {
+      throw new Error("Nenhuma foto enviada.");
+    }
 
+    // Monta array de caminhos das fotos
     const photos = photosFiles.map((file) => `/uploads/services/${file.filename}`);
 
+    // Converte variações de string para objeto
     const parsedVariations = JSON.parse(variations);
 
+    // Cria o serviço usando os dados recebidos
     const service = await createService({
       providerId,
       name,
@@ -24,14 +28,14 @@ if (!photosFiles || photosFiles.length === 0) {
       photos,
       serviceType
     });
+
     return res.status(201).json(service);
 
   } catch (err: any) {
     console.error(err);
     return res.status(500).json({ error: err.message || "Erro ao criar serviço" });
   }
-};
-
+}
 export const getServicesController: RequestHandler = async (req, res) => {
   try {
     const providerId = req.user!.id;
@@ -43,12 +47,12 @@ export const getServicesController: RequestHandler = async (req, res) => {
   }
 };
 
-export const getServicesByTypeController:RequestHandler = async (req, res) => {
+export const getServicesByTypeController: RequestHandler = async (req, res) => {
   try {
     const { type } = req.params;
-    console.log(type)
-    if(!type) {
-       return res.status(400).json({error: "tipo inválido"})  
+    
+    if (!type) {
+      return res.status(400).json({ error: "tipo inválido" });
     }
 
     const services = await getServicesByType(type);

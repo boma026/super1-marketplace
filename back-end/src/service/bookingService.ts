@@ -15,15 +15,15 @@ export interface CreateBookingInput {
 export const createBooking = async (data: CreateBooking) => {
   const { customerId, providerId, serviceId, variationId, date, time } = data;
 
-  // Busca variação
   const variation = await findVariationModel(variationId);
   if (!variation) throw new Error("Variação não encontrada");
 
- console.log({ date, time, variationDuration: variation.durationMinutes });
-const startAt = parseISO(`${date}T${time}:00`);
-console.log("startAt", startAt);
-const endAt = addMinutes(startAt, variation.durationMinutes);
-console.log("endAt", endAt);
+  // Converte a string "YYYY-MM-DDTHH:mm:00" para objeto Date
+  const startAt = parseISO(`${date}T${time}:00`);
+
+  // Soma a duração da variação ao horário inicial para calcular o fim
+  const endAt = addMinutes(startAt, variation.durationMinutes);
+
 
   // Verifica conflitos
   const conflict = await findOverlappingBookingModel(providerId, startAt, endAt);

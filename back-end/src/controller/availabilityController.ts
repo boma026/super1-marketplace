@@ -1,7 +1,5 @@
-// controller/availabilityController.ts
 import { RequestHandler } from "express";
 import { getAvailabilityService, updateAvailabilityService } from "../service/availabilityService";
-
 
 export const createAvailabilityController: RequestHandler = async (req, res) => {
   try {

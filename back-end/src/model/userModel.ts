@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { prisma } from "../../libs/prisma/prisma"
+import { prisma } from "../lib/prisma/prisma"
 
 export const findUserByEmail = async (email:string) => {
     return await prisma.user.findFirst({
@@ -8,7 +8,6 @@ export const findUserByEmail = async (email:string) => {
 }
 
 export const createUserModel = async (data:Prisma.UserCreateInput) => {
-    console.log(data)
     try{
         const user = await prisma.user.create({ data });
         return user;

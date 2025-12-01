@@ -1,4 +1,3 @@
-// service/availabilityService.ts
 import { getAvailabilityModel, updateAvailabilityModel } from "../model/availabilityModel";
 import { CreateAvailabilityProps } from "../types/CreateAvailabilityProps";
 

@@ -1,9 +1,9 @@
 export type Weekday = {
-    segunda: string
-    terca: string
-    quarta: string
-    quinta: string
-    sexta: string
-    sabado: string
-    domingo: string
-}
+	segunda: string;
+	terca: string;
+	quarta: string;
+	quinta: string;
+	sexta: string;
+	sabado: string;
+	domingo: string;
+};

@@ -24,6 +24,7 @@ export const loginController: RequestHandler = async (req, res) => {
             { expiresIn: "1h" }
         );
 
+        // Cria o cookie pra passar pro front
         res.cookie("session", token, {
             httpOnly: true,
             secure: false,

@@ -1,4 +1,4 @@
-import { prisma } from "../../libs/prisma/prisma";
+import { prisma } from "../lib/prisma/prisma";
 import { CreateServiceProps } from "../types/CreateServiceProps";
 
 export const createServiceModel = async ({
@@ -26,6 +26,7 @@ export const createServiceModel = async ({
         photos,
         typeId: type.id,
         variations: {
+          // Cria várias variações em um único create (nested create)
           create: variations.map(v => ({
             name: v.name,
             price: v.price,
@@ -35,7 +36,7 @@ export const createServiceModel = async ({
       },
       include: {
         variations: true,
-        type: true,
+        type: true,       
       }
     });
 
@@ -47,21 +48,27 @@ export const createServiceModel = async ({
 };
 
 export const getServicesModel = async (providerId: string) => {
-  try{
+  try {
     const services = prisma.service.findMany({
-    where: { providerId },
-    include: { variations: true, type: true }
-  });
-  return services;
- }catch(e: any) {
-    throw new Error("Erro ao achar serviços: ", e);
- }
+      where: { providerId },
+      include: {
+        variations: true,
+        type: true
+      }
+    });
+
+    return services;
+
+  } catch (e: any) {
+    throw new Error("Erro ao achar serviços: " + e);
+  }
 };
 
 export const findServicesByTypeModel = async (type: string) => {
   try {
     const services = await prisma.service.findMany({
       where: {
+        // Filtra pelo slug do tipo (mais confiavel)
         type: { slug: type }
       },
       include: {
@@ -69,17 +76,15 @@ export const findServicesByTypeModel = async (type: string) => {
         variations: true,
         provider: {
           include: {
-            availabilities: true // incluir slots
+            availabilities: true
           }
         }
       }
     });
 
     return services;
+
   } catch (e: any) {
     throw new Error("Erro ao buscar serviços por tipo: " + e.message);
   }
 };
-
-
-
