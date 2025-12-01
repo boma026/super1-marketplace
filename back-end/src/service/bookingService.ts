@@ -1,7 +1,7 @@
 
 import { addMinutes, parseISO } from "date-fns";
 import { CreateBooking } from "../types/CreateBooking";
-import { createBookingModel, findOverlappingBookingModel, findVariationModel } from "../model/bookingModel";
+import { cancelBookingModel, createBookingModel, findByIdBookingModel, findOverlappingBookingModel, findProviderBookingsModel, findVariationModel } from "../model/bookingModel";
 
 export interface CreateBookingInput {
   customerId: string;
@@ -41,3 +41,22 @@ console.log("endAt", endAt);
   canceledAt: null,
 });
 }
+
+export const getProviderBookings = async (providerId: string) => {
+
+  const bookings = await findProviderBookingsModel(providerId);
+
+  return bookings;
+};
+
+ export const cancelBooking = async (bookingId: string) => {
+    const booking = await findByIdBookingModel(bookingId);
+
+    if (!booking) {
+      throw new Error("Booking não encontrado.");
+    }
+
+    const updated = await cancelBookingModel(bookingId);
+
+    return updated;
+  }

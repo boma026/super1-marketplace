@@ -6,7 +6,7 @@ import { isProvider } from "../middleware/isProvider";
 import { upload } from "../config/multer"; // ✔ importar o DISK STORAGE correto
 import { createAvailabilityController, getAvailabilityController } from "../controller/availabilityController";
 import { isCustomer } from "../middleware/isCostumer";
-import { createBookingController } from "../controller/bookingController";
+import { cancelBookingController, createBookingController, getProviderBookingsController } from "../controller/bookingController";
 
 export const router = express.Router();
 
@@ -21,7 +21,8 @@ router.post("/availability", authMiddleware, isProvider, createAvailabilityContr
 router.get("/availability", authMiddleware, isProvider, getAvailabilityController);
 
 router.post("/booking", authMiddleware, isCustomer, createBookingController);
-//router.get("/booking", authMiddleware, isCustomer, getBookingController);
+router.get("/booking", authMiddleware, isProvider, getProviderBookingsController);
+router.delete("/booking/:id", authMiddleware, isProvider, cancelBookingController);
 
 
 

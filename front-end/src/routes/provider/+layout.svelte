@@ -1,6 +1,10 @@
 <!-- src/routes/provider/+layout.svelte -->
 <script>
   import { Button } from "$lib/components/ui/button";
+
+ /* const handleLogout = () => {
+    
+  }*/
 </script>
 
 <div class="flex min-h-screen">
@@ -27,16 +31,11 @@
         </Button>
       </a>
 
-      <a href="/provider/bookings">
-        <Button variant="ghost" class="w-full justify-start">
-          📑 Contratações
-        </Button>
-      </a>
     </nav>
 
     <div class="pt-10">
       <a href="/logout">
-        <Button variant="ghost" class="w-full justify-start">
+        <Button variant="ghost" class="w-full justify-start" >
           🚪 Sair
         </Button>
       </a>

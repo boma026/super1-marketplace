@@ -5,11 +5,11 @@ async function main() {
     "Manicure",
     "Pedicure",
     "Corte de cabelo",
-    "Coloração",
-    "Depilação",
+    "Coloracao",
+    "Depilacao",
     "Maquiagem",
     "Massagem",
-    "Estética facial"
+    "Estetica facial"
   ];
 
   for (const typeName of serviceTypes) {

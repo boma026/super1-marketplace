@@ -3,15 +3,16 @@ import bcrypt from "bcryptjs";
 import { Prisma } from "@prisma/client";
 
 export const createUser = async (data: Prisma.UserCreateInput) =>{
+    
     const existingUserEmail = await findUserByEmail(data.email);
     
     if(existingUserEmail){
         throw new Error("Email ja cadastrado");
     }
-
+    
     const hash = await bcrypt.hash(data.password, 10);
     data.password = hash;
-
+    
     return createUserModel(data);
 }
 

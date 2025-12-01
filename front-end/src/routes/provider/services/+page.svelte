@@ -3,11 +3,11 @@
   import { onMount } from "svelte";
     import { api } from "../../../utils/api";
     import { PUBLIC_API_URL } from "$env/static/public";
-  import type { Services } from "../../../type/Services";
+	import type { Service } from "../../../type/Service";
 
 
   // estado dos serviços
-  let services: Services[] = [];
+  let services: Service[] = [];
 
   // carregar serviços do backend
   const loadServices = async () => {

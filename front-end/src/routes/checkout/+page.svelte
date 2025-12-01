@@ -50,7 +50,7 @@
         date: checkoutData.date
       });
 
-      alert("Serviço criado com sucesso!");
+      alert("Agendamento criado com sucesso!");
       console.log("API response:", res.data);
     }  catch (error: any) {
       console.error(error);
@@ -63,7 +63,7 @@
       }
 
       if (error.response?.status === 403) {
-        alert("Acesso negado. Faça login como prestador.");
+        alert("Acesso negado. Faça login como cliente.");
         window.location.href = "/auth/select-role";
         return;
       }

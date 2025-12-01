@@ -46,7 +46,7 @@ export const getServicesController: RequestHandler = async (req, res) => {
 export const getServicesByTypeController:RequestHandler = async (req, res) => {
   try {
     const { type } = req.params;
-
+    console.log(type)
     if(!type) {
        return res.status(400).json({error: "tipo inválido"})  
     }

@@ -2,8 +2,9 @@
   import { onMount } from "svelte";
   import { PUBLIC_API_URL } from "$env/static/public";
   import { api } from "../../../utils/api";
-  import type { Service } from "../../../type/Services";
-  import type { Weekday } from "../../../type/Enums";
+
+	import type { Service } from "../../../type/Service";
+	import { weekdays } from "../../../constants/Weekday";
 
   export let params;
   let type = params.type;
@@ -14,13 +15,14 @@
 
   // Data selecionada pelo usuário
   let selectedDate = ""; // YYYY-MM-DD
-  let selectedWeekday: Weekday | null = null;
+  let selectedWeekday: string | null = null;
 
   // Carrega serviços do backend
   const loadServices = async () => {
     try {
       const res = await api.get(`/services/${type}`);
       services = res.data;
+      console.log(services)
     } catch (err: any) {
       console.error(err);
       errorMessage = "Erro ao carregar serviços.";
@@ -34,16 +36,16 @@
   });
 
   // Converte data em Weekday
-  const getWeekdayFromDate = (dateStr: string): Weekday => {
+  const getWeekdayFromDate = (dateStr: string): string => {
   const [year, month, day] = dateStr.split("-").map(Number);
 
-  // Criar data corretamente no timezone local
-  const date = new Date(year, month - 1, day);
+  const date = new Date();
+  date.setFullYear(year, month - 1, day);
+  date.setHours(12, 0, 0, 0); // garante dia correto evitando problemas de DST
 
-  const jsDay = date.getDay(); // 0=Dom 1=Seg ...
-  const weekdays: Weekday[] = ["Domingo","Segunda","Terca","Quarta","Quinta","Sexta","Sabado"];
+  const jsDay = date.getDay(); 
 
-  return weekdays[jsDay] as Weekday;
+  return weekdays[jsDay];
 };
 
 
@@ -84,7 +86,7 @@
   const goToCheckout = (
     service: Service,
     slot: string,
-    weekday: Weekday,
+    weekday: string,
     variationId: string,
     selectedDate: string
   ) => {

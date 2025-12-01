@@ -49,13 +49,11 @@ export const loginController: RequestHandler = async (req, res) => {
 
 
 export const registerController:RequestHandler = async (req,res) => {
-    console.log(req.body)
 
     if(!req.body.email || !req.body.password || !req.body.name){
        res.status(400).json({error: "dados inválidos"})
        return; 
     }
-
     try{
         const createdUser = await createUser(req.body);
             res.status(201).json({createdUser, status: true });
@@ -63,8 +61,8 @@ export const registerController:RequestHandler = async (req,res) => {
     }
 
     catch(e: any){
-        if (e.message === "Email ja cadastrado!") {
-            res.status(400).json({ error: "O e-mail já está cadastrado." });
+        if (e.message === "Email ja cadastrado") {
+            res.status(400).json({ error: "Email ja cadastrado" });
             return;
         }
         
