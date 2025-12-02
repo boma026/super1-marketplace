@@ -102,7 +102,7 @@ npx prisma migrate deploy
 
 Execute o seed:
 ```bash
-npx prisma db seed
+npm run seed
 ```
 
 
