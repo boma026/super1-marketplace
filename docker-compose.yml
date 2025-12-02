@@ -32,6 +32,7 @@ services:
       REDIS_HOST: "redis"
       REDIS_PORT: "6379"
       PORT: "4000"
+      JWT_SECRET_KEY: chavejwt
     volumes:
       - ./back-end:/app
       - /app/node_modules
@@ -50,7 +51,7 @@ services:
     depends_on:
       - backend
     environment:
-      - VITE_API_URL="http://localhost:4000"
+      - VITE_API_URL=http://localhost:4000
 
 volumes:
   postgres_data:
