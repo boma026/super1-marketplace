@@ -128,7 +128,7 @@ PORT=4000
 ```
 ### 🎥 Vídeo da Apresentação
 
-[👉 Vídeo da Demo)](https://drive.google.com/file/d/1w-ioGR9QHY_s-0r7pJBFuYU_aueugX_s/view?usp=sharing)
+[👉 (Vídeo da Demo)](https://drive.google.com/file/d/1w-ioGR9QHY_s-0r7pJBFuYU_aueugX_s/view?usp=sharing)
 
 ### ⭐ Melhorias Futuras:
 
