@@ -5,7 +5,7 @@
   "scripts": {
   "dev": "node --import=tsx --watch ./src/server.ts",
   "seed": "node --import=tsx ./src/lib/prisma/seeds/seed.ts",
-  "start:docker": "npm run seed && npm run dev"
+  "start:docker": "npm run dev"
   },
   "author": "",
   "license": "ISC",

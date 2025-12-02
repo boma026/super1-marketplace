@@ -7,7 +7,8 @@ RUN npm install
 
 COPY . .
 
+RUN npx prisma generate
+
 EXPOSE 4000
 
-# Espera o banco e depois roda seed + servidor
 CMD ["npm", "run", "start:docker"]
