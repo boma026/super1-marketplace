@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { PUBLIC_API_URL } from '$env/static/public';
 	import { api } from '../../../utils/api';
 
 	import type { Service } from '../../../type/Service';
 	import { weekdays } from '../../../constants/Weekday';
+	import { API_URL } from '../../../constants/API_URL';
 
 	export let params;
 	let type = params.type;
@@ -152,7 +152,7 @@
 					<div class="mt-2 flex gap-2">
 						{#each s.photos as p}
 							<img
-								src={`${PUBLIC_API_URL}${p}`}
+								src={`${API_URL}${p}`}
 								alt={s.name}
 								class="h-20 w-20 rounded-md border object-cover"
 							/>

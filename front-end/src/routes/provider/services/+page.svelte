@@ -2,8 +2,8 @@
 	import Button from '$lib/components/ui/button/button.svelte'; // seu axios configurado
 	import { onMount } from 'svelte';
 	import { api } from '../../../utils/api';
-	import { PUBLIC_API_URL } from '$env/static/public';
 	import type { Service } from '../../../type/Service';
+	import { API_URL } from '../../../constants/API_URL';
 
 	// estado dos serviços
 	let services: Service[] = [];
@@ -61,7 +61,7 @@
 				<div class="mt-2 flex gap-2">
 					{#each s.photos as p}
 						<img
-							src={`${PUBLIC_API_URL}${p}`}
+							src={`${API_URL}${p}`}
 							alt={s.name}
 							class="h-16 w-16 rounded border object-cover"
 						/>

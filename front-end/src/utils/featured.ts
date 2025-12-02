@@ -1,4 +1,4 @@
-import { PUBLIC_API_URL } from '$env/static/public';
+import { API_URL } from '../constants/API_URL';
 import { serviceTypes } from '../constants/serviceTypes';
 
 export const featuredServices = serviceTypes.map((service) => {
@@ -6,6 +6,6 @@ export const featuredServices = serviceTypes.map((service) => {
 
 	return {
 		name: service,
-		imageUrl: `${PUBLIC_API_URL}/uploads/services/${imageName}.jpg`
+		imageUrl: `${API_URL}/uploads/services/${imageName}.jpg`
 	};
 });

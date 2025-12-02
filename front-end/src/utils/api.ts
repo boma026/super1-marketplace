@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { PUBLIC_API_URL } from '$env/static/public';
+import { API_URL } from '../constants/API_URL';
 
-if (!PUBLIC_API_URL) {
-	throw new Error('Variável PUBLIC_API_URL não definida');
+if (!API_URL) {
+	throw new Error('Variável API_URL não definida');
 }
 
 export const api = axios.create({
-	baseURL: PUBLIC_API_URL,
+	baseURL: API_URL,
 	withCredentials: true
 });
