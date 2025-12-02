@@ -53,7 +53,7 @@
 			console.log('API response:', res.data);
 		} catch (error: any) {
 			console.error(error);
-			alert('Erro ao criar serviço!');
+			alert('Erro ao criar agendamento!');
 
 			if (error.response?.status === 401) {
 				alert('Você precisa fazer login novamente.');

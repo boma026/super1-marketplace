@@ -5,7 +5,9 @@ import cors from "cors";
 import { router } from "./router/routes";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
+if (process.env.NODE_ENV !== "docker") {
+  dotenv.config();
+}
 const server = express();
 server.use("/uploads", express.static("uploads"));
 server.use(cookieParser());
