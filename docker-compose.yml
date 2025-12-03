@@ -32,6 +32,7 @@ services:
       REDIS_HOST: "redis"
       REDIS_PORT: "6379"
       PORT: "4000"
+      JWT_SECRET_KEY: chavejwt
     volumes:
       - ./back-end:/app
       - /app/node_modules
