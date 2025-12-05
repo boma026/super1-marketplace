@@ -31,7 +31,6 @@
 			const res = await api.post('/login', data, { withCredentials: true });
 			if (res.status === 200) {
 				alert('logado');
-				console.log(res.data.user.role);
 				if (res.data.user.role === 'CUSTOMER') {
 					window.location.href = '/';
 				} else {

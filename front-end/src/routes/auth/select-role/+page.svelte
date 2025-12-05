@@ -3,9 +3,7 @@
 
 	function escolher(role: 'CUSTOMER' | 'PROVIDER') {
 		localStorage.removeItem('role');
-		console.log(localStorage.getItem('role'));
 		localStorage.setItem('role', role);
-		console.log(localStorage.getItem('role'));
 		window.location.href = '/auth/register';
 	}
 </script>

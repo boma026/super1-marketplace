@@ -40,7 +40,6 @@
 		if (!ok) return;
 
 		try {
-			console.log('oi');
 			const res = await api.delete(`/booking/${id}`);
 			console.log(res.data);
 			// Atualiza a tela

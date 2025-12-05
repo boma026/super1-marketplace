@@ -12,7 +12,6 @@
 	let name = '';
 
 	onMount(() => {
-		console.log(localStorage.getItem('role'));
 		role = localStorage.getItem('role');
 		if (!role) {
 			window.location.href = '/select-role';

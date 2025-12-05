@@ -13,7 +13,6 @@
 		try {
 			const res = await api.get('/service'); // rota GET no backend
 			services = res.data;
-			console.log(services);
 		} catch (error: any) {
 			console.error(error);
 			alert('Erro ao criar serviço!');
