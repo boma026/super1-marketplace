@@ -27,7 +27,6 @@
 			return;
 		}
 		checkoutData = JSON.parse(data);
-		console.log(checkoutData?.slot);
 	});
 
 	// Função para confirmar reserva

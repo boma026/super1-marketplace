@@ -17,10 +17,10 @@
 	const loadAvailability = async () => {
 		try {
 			const res = await api.get('/availability');
-			const backend = res.data;
+			const providerAvailability = res.data;
 
 			const map = new Map<string, { startTime: string; endTime: string }>(
-				backend.map((d: any) => [d.weekday, { startTime: d.startTime, endTime: d.endTime }])
+				providerAvailability.map((d: any) => [d.weekday, { startTime: d.startTime, endTime: d.endTime }])
 			);
 
 			availability = ALL_DAYS.map((day) => ({
