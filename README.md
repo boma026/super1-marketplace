@@ -126,10 +126,6 @@ REDIS_HOST=127.0.0.1
 REDIS_PORT=6379
 PORT=4000
 ```
-### 🎥 Vídeo da Apresentação
-
-👉 Vídeo da Demo — YouTube
-(adicione o link aqui)
 
 ### ⭐ Melhorias Futuras:
 
